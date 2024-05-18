@@ -1,2 +1,5 @@
 # gitignore template file for SkySync
 git_render.sh
+
+# redud directories and content
+__pycache__/
