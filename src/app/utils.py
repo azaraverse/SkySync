@@ -2,6 +2,9 @@
 """Module to Get weather data from OpenWeatherMap API"""
 import requests
 from os import getenv
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def get_weather(city):

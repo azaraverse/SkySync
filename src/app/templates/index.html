@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Weather Forecast</h1>
+<h1>SkySync Weather Forecast</h1>
 <form method="post">
     {{ form.hidden_tag() }}
     <div>
@@ -14,12 +14,13 @@
 </form>
 
 {% if weather_data %}
-    <h2>Weather in {{ weather_data["name"]}}</h2>
+    <h2>Weather in {{ weather_data["name"] }}</h2>
     <ul>
         <li>Temperature: {{ weather_data["main"]["temp"] }}°C</li>
-        <li>Humidity: {{ weather_data["main"]["humidity"] }}</li>
-        <li>Wind Speed:{{ weather_data["wind"]["speed"] }}</li>
-        <li>Conditions:{{ weather_data["weather"][0]["description"] }}</li>
+        <li>Feels like: {{ weather_data["main"]["feels_like"] }}°C</li>
+        <li>Humidity: {{ weather_data["main"]["humidity"] }}%</li>
+        <li>Wind Speed: {{ weather_data["wind"]["speed"] }}m/s</li>
+        <li>Conditions: {{ weather_data["weather"][0]["description"] }}</li>
     </ul>
 {% endif %}
 {% endblock %}
