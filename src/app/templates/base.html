@@ -5,10 +5,13 @@
         <meta content="Yushahu Yussif Azara" name="author">
         <title>SkySync</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     </head>
     <body>
         <div class="container">
             {% block content %}{% endblock %}
         </div>
+        <!-- Load javaScript after DOM is fully loaded -->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
     </body>
 </html>
