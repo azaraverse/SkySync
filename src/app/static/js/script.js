@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <h6 class="mt-3">Actually feels like: ${Math.floor(data.main.feels_like)}°</h6>
             <div class="mt-3">
                 <h6>Humidity: ${Math.floor(data.main.humidity)}%</h6>
-                <h6>Wind Speed: ${Math.floor(data.wind.speed)} m/s</h6>
+                <h6>Wind Speed: ${Math.floor(data.wind.speed)} km/s</h6>
             </div>
         </div>`;
     $('#weather-info').html(weatherInfo);
