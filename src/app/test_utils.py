@@ -21,12 +21,13 @@ def test_get_weather():
         print(weather_data)
         # test retrieving paramenters to use in html
         name = weather_data["name"]
+        country = weather_data["sys"]["country"]
         temperature = int(weather_data["main"]["temp"])
         feels = int(weather_data["main"]["feels_like"])
         humidity = int(weather_data["main"]["humidity"])
         wind = weather_data["wind"]["speed"]
         conditions = weather_data["weather"][0]["description"]
-        print(f'Weather for: {name}')
+        print(f'Weather for: {name}, {country}')
         print(f'Temperature: {temperature}°C') # alt + 0176 for degree sym
         print(f'Feels like: {feels}°C')
         print(f'Humidity: {humidity}%')

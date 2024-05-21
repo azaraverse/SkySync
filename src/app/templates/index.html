@@ -1,30 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>SkySync Weather Forecast</h1>
-<form method="post">
+<div class="text-center">
+<h2 class="mb-4">SkySync Weather Forecast</h2>
+<form method="post" class="form-inline justify-content-center">
     {{ form.hidden_tag() }}
-    <div>
-        {{ form.city.label }}
-        {{ form.city(size=32) }}
+    <div class="form-group mx-2">
+        {{ form.city.label(class="sr-only") }}
+        {{ form.city(class="form-control", placeholder="Enter city name") }}
     </div>
-    <div>
-        {{ form.submit() }}
+    <div class="form-group mx-2">
+        {{ form.submit(class="btn btn-primary") }}
     </div>
 </form>
+</div>
 
-<div id="weather-info">
+<div id="weather-info" class="mt-4 text-center">
     <!-- Weather information goes here on document load up -->
 </div>
 
 {% if weather_data %}
-    <h2>Weather in {{ weather_data["name"] }}</h2>
-    <ul>
-        <li>Temperature: {{ weather_data["main"]["temp"] }}°C</li>
-        <li>Feels like: {{ weather_data["main"]["feels_like"] }}°C</li>
-        <li>Humidity: {{ weather_data["main"]["humidity"] }}%</li>
-        <li>Wind Speed: {{ weather_data["wind"]["speed"] }}m/s</li>
-        <li>Conditions: {{ weather_data["weather"][0]["description"] }}</li>
+<div class="mt-4">
+    <h2 class="text-center">Weather in {{ weather_data["name"] }}, {{ weather_data["sys"]["country"] }}</h2>
+    <ul class="list-group mt-3">
+        <li class="list-group-item">Temperature: {{ weather_data["main"]["temp"] | int }}°C</li>
+        <li class="list-group-item">Feels like: {{ weather_data["main"]["feels_like"] | int }}°C</li>
+        <li class="list-group-item">Humidity: {{ weather_data["main"]["humidity"] | int }}%</li>
+        <li class="list-group-item">Wind Speed: {{ weather_data["wind"]["speed"] | int }}m/s</li>
+        <li class="list-group-item">Conditions: {{ weather_data["weather"][0]["description"] }}</li>
     </ul>
 {% endif %}
 {% endblock %}

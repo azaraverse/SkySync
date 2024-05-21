@@ -1,0 +1,40 @@
+body {
+    background-color: #f8f9fa;
+}
+
+h1, h2, h6 {
+    color: #343a40;
+}
+
+#weather-info {
+    margin-top: 20px;
+}
+
+#weather-info h1 {
+    font-size: 4rem;
+}
+
+#weather-info h5, #weather-info h6 {
+    margin: 10px 0;
+}
+
+#weather-info .row {
+    margin: 10px 0;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.container {
+    padding-top: 60px;
+}
+
+.form-control {
+    max-width: 300px;
+}
+
+.list-group-item {
+    text-align: left;
+    text-decoration: none;
+}

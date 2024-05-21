@@ -27,14 +27,23 @@ document.addEventListener('DOMContentLoaded', function () {
   // Function to display weather data
   function displayWeatherData (data) {
     const weatherInfo = `
-        <h2>Weather in ${data.name}</h2>
-        <ul>
-            <li>Temperature: ${data.main.temp}°C</li>
-            <li>Feels like: ${data.main.feels_like}°C</li>
-            <li>Humidity: ${data.main.humidity}%</li>
-            <li>Wind Speed: ${data.wind.speed}m/s</li>
-            <li>Conditions: ${data.weather[0].description}</li>
-        </ul>`;
+        <div class="text-center">
+            <h6><strong>${data.name}, ${data.sys.country}</strong></h6>
+            <h1>${Math.floor(data.main.temp)}°</h1>
+            <h6>${data.weather[0].description}</h6>
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <h6>High: ${Math.floor(data.main.temp_max)}°</h6>
+                </div>
+                <div class="col-auto">
+                    <h6>Low: ${Math.floor(data.main.temp_min)}°</h6>
+                </div>
+            <h6 class="mt-3">Actually feels like: ${Math.floor(data.main.feels_like)}°</h6>
+            <div class="mt-3">
+                <h6>Humidity: ${Math.floor(data.main.humidity)}%</h6>
+                <h6>Wind Speed: ${Math.floor(data.wind.speed)} m/s</h6>
+            </div>
+        </div>`;
     $('#weather-info').html(weatherInfo);
   }
 
