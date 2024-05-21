@@ -71,3 +71,52 @@ def get_weather_coords(lat, lon):
     except requests.exceptions.RequestException as e:
         print(f"Request failed: {e}")
         return None
+
+
+def get_weather_forecast(lat, lon):
+    """A function that retrieves a 5-day weather forecast data from an
+    API using coordinates.
+
+    Args:
+        lat (float): Latitude coordinate.
+        lon (float): Longitude coordinate.
+    Returns:
+        JSON response of weather data.
+    """
+    api_key = getenv("WEATHER_API_KEY")
+    if not api_key:
+        print("API Key is missing...")
+        sys.exit(1)
+
+    api_url = "https://api.openweathermap.org/data/2.5/forecast"
+    params = {
+        "lat": lat,
+        "lon": lon,
+        "appid": api_key,
+        "units": "metric"
+    }
+
+    try:
+        response = requests.get(api_url, params=params)
+        if response.status_code == 200:
+            return response.json()
+        print(f"Error: Received status code: {response.status_code}")
+        print(f"Response: {response.text}")
+        return None
+    except requests.exceptions.RequestException as e:
+        print(f"Request failed: {e}")
+        return None
+
+
+def capitalise_words(s):
+    """
+    Capitalises the first alphabet of each word from the description of
+    the weather data
+
+    Args:
+        s: strings to capitalise (first char of each words only)
+    Returns:
+        A capitalised first word for each word given in the weather
+        description API.
+    """
+    return ' '.join(word.capitalize() for word in s.split())

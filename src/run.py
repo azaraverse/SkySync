@@ -7,6 +7,7 @@ import os
 from os import getenv
 from dotenv import load_dotenv
 import re
+from app.utils import capitalise_words
 
 load_dotenv()
 secret_key = os.urandom(24)
@@ -23,6 +24,7 @@ app = Flask(
     )
 app.config["SECRET_KEY"] = secret_key
 app.register_blueprint(app_views)
+app.jinja_env.filters['capitalise_words'] = capitalise_words
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 
@@ -32,22 +34,6 @@ def not_found(error):
     return jsonify(
         {"error": "Not found"}
     ), 404
-
-
-def capitalise_words(s):
-    """
-    Capitalises the first alphabet of each word from the description of
-    the weather data
-
-    Args:
-        s: strings to capitalise (first char of each words only)
-    Returns:
-        A capitalised first word for each word given in the weather
-        description API.
-    """
-    return ' '.join(word.capitalize() for word in s.split())
-
-app.jinja_env.filters['capitalise_words'] = capitalise_words
 
 
 if __name__ == "__main__":
