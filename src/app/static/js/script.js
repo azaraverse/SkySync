@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="col-auto">
                     <h6>Low: ${Math.floor(data.main.temp_min)}°</h6>
                 </div>
+            </div>
             <h6 class="mt-3">Actually feels like: ${Math.floor(data.main.feels_like)}°</h6>
             <div class="mt-3">
                 <h6>Humidity: ${Math.floor(data.main.humidity)}%</h6>

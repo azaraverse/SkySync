@@ -20,14 +20,23 @@
 </div>
 
 {% if weather_data %}
-<div class="mt-4">
-    <h2 class="text-center">Weather in {{ weather_data["name"] }}, {{ weather_data["sys"]["country"] }}</h2>
-    <ul class="list-group mt-3">
-        <li class="list-group-item">Temperature: {{ weather_data["main"]["temp"] | int }}°C</li>
-        <li class="list-group-item">Feels like: {{ weather_data["main"]["feels_like"] | int }}°C</li>
-        <li class="list-group-item">Humidity: {{ weather_data["main"]["humidity"] | int }}%</li>
-        <li class="list-group-item">Wind Speed: {{ weather_data["wind"]["speed"] | int }}m/s</li>
-        <li class="list-group-item">Conditions: {{ weather_data["weather"][0]["description"] }}</li>
-    </ul>
+<div class="mt-4" class="text-center">
+    <h6><strong>{{ weather_data["name"] }}, {{weather_data["sys"]["country"] | int }}</strong></h6>
+    <h1>{{ weather_data["main"]["temp"] | int }}°</h1>
+    <h6>{{ weather_data["weather"][0]["description"] }}</h6>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h6>High: {{ weather_data["main"]["temp_max"] | int }}°</h6>
+        </div>
+        <div class="col-auto">
+            <h6>Low: {{ weather_data["main"]["temp_min"] | int }}°</h6>
+        </div>
+    </div>
+    <h6 class="mt-3">Actually feels like: {{ weather_data["main"]["feels_like"] | int }}°</h6>
+    <div class="mt-3">
+        <h6>Humidity: {{ weather_data["main"]["humidity"] | int }}%</h6>
+        <h6>Wind Speed: {{ weather_data["wind"]["speed"] | int }} m/s</h6>
+    </div>
+</div>
 {% endif %}
 {% endblock %}
