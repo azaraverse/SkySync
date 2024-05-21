@@ -23,7 +23,7 @@
 <div class="mt-4 text-center">
     <h6><strong>{{ weather_data["name"] }}, {{ weather_data["sys"]["country"] }}</strong></h6>
     <h1>{{ weather_data["main"]["temp"] | int }}°</h1>
-    <h6>{{ weather_data["weather"][0]["description"] }}</h6>
+    <h6>{{ weather_data["weather"][0]["description"] | capitalise_words }}</h6>
     <div class="row justify-content-center">
         <div class="col-auto">
             <h6>High: {{ weather_data["main"]["temp_max"] | int }}°</h6>

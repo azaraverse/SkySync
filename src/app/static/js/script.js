@@ -24,13 +24,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // function to capitalise the first letter of a word
+  function capitaliseWords (str) {
+    return str.replace(/\b\w/g, function (char) {
+        return char.toUpperCase();
+    })
+  }
+
   // Function to display weather data
   function displayWeatherData (data) {
     const weatherInfo = `
         <div class="text-center">
             <h6><strong>${data.name}, ${data.sys.country}</strong></h6>
             <h1>${Math.floor(data.main.temp)}°</h1>
-            <h6>${data.weather[0].description}</h6>
+            <h6>${capitaliseWords(data.weather[0].description)}</h6>
             <div class="row justify-content-center">
                 <div class="col-auto">
                     <h6>High: ${Math.floor(data.main.temp_max)}°</h6>
