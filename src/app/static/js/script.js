@@ -14,13 +14,38 @@ document.addEventListener('DOMContentLoaded', function () {
         if (data.error) {
           alert('Error fetching weather data: ' + data.error);
         } else {
-          displayWeatherData(data);
+          displayWeatherData(data)
+          getForecastByCoords(lat, lon);
         }
       },
       error: function (error) {
         console.error('Error:', error);
         alert('Error fetching weather data. Please try again.')
       }
+    });
+  }
+
+  // Function to get forecast data using coordinates
+  function getForecastByCoords (lat, lon) {
+    $.ajax({
+        url: '/forecast',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            lat: lat,
+            lon: lon
+        }),
+        success: function (data) {
+            if (data.error) {
+                alert('Error fetching forecast data: ' + data.error);
+            } else {
+                displayForecastData(data);
+            }
+        },
+        error: function (error) {
+            console.error('Error:', error)
+            alert('Error fetching forecast data. Please try again.');
+        }
     });
   }
 
@@ -33,26 +58,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Function to display weather data
   function displayWeatherData (data) {
+    console.log(data);
     const weatherInfo = `
         <div class="text-center">
-            <h6><strong>${data.name}, ${data.sys.country}</strong></h6>
-            <h1>${Math.floor(data.main.temp)}°</h1>
-            <h6>${capitaliseWords(data.weather[0].description)}</h6>
+            <h6><strong>${data.weather.name}, ${data.weather.sys.country}</strong></h6>
+            <h1>${Math.floor(data.weather.main.temp)}°</h1>
+            <h6>${capitaliseWords(data.weather.weather[0].description)}</h6>
             <div class="row justify-content-center">
                 <div class="col-auto">
-                    <h6>High: ${Math.floor(data.main.temp_max)}°</h6>
+                    <h6>High: ${Math.floor(data.weather.main.temp_max)}°</h6>
                 </div>
                 <div class="col-auto">
-                    <h6>Low: ${Math.floor(data.main.temp_min)}°</h6>
+                    <h6>Low: ${Math.floor(data.weather.main.temp_min)}°</h6>
                 </div>
             </div>
-            <h6 class="mt-3">Actually feels like: ${Math.floor(data.main.feels_like)}°</h6>
+            <h6 class="mt-3">Actually feels like: ${Math.floor(data.weather.main.feels_like)}°</h6>
             <div class="mt-3">
-                <h6>Humidity: ${Math.floor(data.main.humidity)}%</h6>
-                <h6>Wind Speed: ${Math.floor(data.wind.speed)} km/s</h6>
+                <h6>Humidity: ${Math.floor(data.weather.main.humidity)}%</h6>
+                <h6>Wind Speed: ${Math.floor(data.weather.wind.speed)} km/s</h6>
             </div>
         </div>`;
     $('#weather-info').html(weatherInfo);
+  }
+
+  // Function to display forecast data
+  function displayForecastData(data) {
+    let forecastInfo = '<h2 class="text-center">5-Day Forecast</h2>';
+    data.list.forEach(item => {
+      forecastInfo += `
+        <div class="forecast-item">
+          <h4 class="text-center">${new Date(item.dt_txt).toLocaleDateString()}</h4>
+          <p class="text-center">${Math.floor(item.main.temp)}° - ${capitaliseWords(item.weather[0].description)}</p>
+        </div>`;
+    });
+    $('#forecast-info').html(forecastInfo);
   }
 
   // Function to handle geolocation success

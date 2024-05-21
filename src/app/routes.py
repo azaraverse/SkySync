@@ -3,6 +3,7 @@ from flask import flash, redirect, url_for, request, Blueprint, jsonify
 from flask import render_template
 from app.forms import WeatherForm
 from app.utils import get_weather, get_weather_coords
+from app.utils import get_weather_forecast
 from app import app_views
 import logging
 
@@ -22,12 +23,18 @@ def index():
     """
     form = WeatherForm()
     weather_data = None
+    forecast_data = None
 
     if form.validate_on_submit():
         city = form.city.data
         weather_data = get_weather(city)
+        if weather_data:
+            lat = weather_data["coord"]["lat"]
+            lon = weather_data["coord"]["lon"]
+            forecast_data = get_weather_forecast(lat, lon)
     return render_template(
-        "index.html", form=form, weather_data=weather_data
+        "index.html", form=form, weather_data=weather_data,
+        forecast_data=forecast_data
         )
 
 
@@ -58,23 +65,53 @@ def get_weather_by_coords():
     logging.debug(f"Received data: {data}")
 
     if data is None:
-        return jsonify({"error": "No data received"}), 400
-    lat = data.get('lat')
+        return jsonify(
+            {"error": "No data received"}
+            ), 400
+    lat = data.get("lat")
     lon = data.get("lon")
 
     if not lat or not lon:
         return jsonify(
-            {
-                "error": "Missing coordinates"
-            }
+            {"error": "Missing coordinates"}
         ), 400
 
     weather_data = get_weather_coords(lat, lon)
-    if weather_data:
-        return jsonify(weather_data)
-    else:
+    forecast_data = get_weather_forecast(lat, lon)
+    if weather_data and forecast_data:
         return jsonify(
             {
-                "error": "Unable to fetch weather data"
+                "weather": weather_data,
+                "forecast": forecast_data
             }
+            )
+    else:
+        return jsonify(
+            {"error": "Unable to fetch weather data"}
+        ), 500
+
+
+@app_views.route('/forecast', methods=['POST'], strict_slashes=False)
+def forecast():
+    """"""
+    data = request.get_json()
+
+    if data is None:
+        return jsonify(
+            {"error": "no data retrieved"}
+        ), 400
+    lat = data.get("lat")
+    lon = data.get("lon")
+
+    if not lat or not lon:
+        return jsonify(
+            {"error": "missing coordinates"}
+        ), 400
+
+    forecast_data = get_weather_forecast(lat, lon)
+    if forecast_data:
+        return jsonify(forecast_data)
+    else:
+        return jsonify(
+            {"error": "unable to retrieve forecast weather data."}
         ), 500

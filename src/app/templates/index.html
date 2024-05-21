@@ -19,6 +19,10 @@
     <!-- Weather information goes here on document load up -->
 </div>
 
+<div id="forecast-info" class="mt-4 text-center">
+    <!-- Weather forecast information goes here on document load up -->
+</div>
+
 {% if weather_data %}
 <div class="mt-4 text-center">
     <h6><strong>{{ weather_data["name"] }}, {{ weather_data["sys"]["country"] }}</strong></h6>
@@ -38,5 +42,15 @@
         <h6>Wind Speed: {{ weather_data["wind"]["speed"] | int }} km/s</h6>
     </div>
 </div>
+{% endif %}
+
+{% if forecast_data %}
+    <h2 class="text-center">Next 5-day Forecast</h2>
+    {% for item in forecast_data["list"] %}
+        <div class="forecast-item">
+            <h4 class="text-center">{{ item["dt_txt"] }}</h4>
+            <p class="text-center">{{ item["main"]["temp"] | int }}° - {{ item["weather"][0]["description"] | capitalise_words }}</p>
+        </div>
+    {% endfor %}
 {% endif %}
 {% endblock %}
