@@ -7,12 +7,12 @@ import os
 from os import getenv
 from dotenv import load_dotenv
 import re
-from app.utils import capitalise_words
+from app.utils import capitalise_words, datetime_filter
 
 load_dotenv()
 secret_key = os.urandom(24)
 
-# ensure flask can locate the templates folder and static folder
+# ensure flask can locate the templates and static folder
 templates_folder = os.path.join(
     os.path.dirname(__file__), 'app', 'templates'
     )
@@ -25,6 +25,7 @@ app = Flask(
 app.config["SECRET_KEY"] = secret_key
 app.register_blueprint(app_views)
 app.jinja_env.filters['capitalise_words'] = capitalise_words
+app.jinja_env.filters['datetime'] = datetime_filter
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 

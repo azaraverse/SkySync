@@ -60,9 +60,17 @@ def search():
     """
     form = WeatherForm()
 
-    if form.validate_on_submit():
-        city = form.city.data
-        return redirect(url_for("app_views.index", city=city))
+    if request.method == "POST":
+        city = request.form.get('city')
+        if city:
+            # fetch weather data using the utility function
+            weather_data = get_weather(city)
+            if weather_data:
+                return jsonify({ "weather": weather_data })
+            else:
+                return jsonify({ "error": "could not retrieve weather data." })
+        else:
+            return jsonify({ "error": "City name is required." }), 400
     return render_template("search.html", form=form)
 
 
@@ -78,8 +86,8 @@ def get_weather_by_coords():
         return jsonify(
             {"error": "No data received"}
             ), 400
-    lat = data.get("lat")
-    lon = data.get("lon")
+    lat = data.get('latitude')
+    lon = data.get('longitude')
 
     if not lat or not lon:
         return jsonify(
@@ -87,14 +95,8 @@ def get_weather_by_coords():
         ), 400
 
     weather_data = get_weather_coords(lat, lon)
-    forecast_data = get_weather_forecast(lat, lon)
-    if weather_data and forecast_data:
-        return jsonify(
-            {
-                "weather": weather_data,
-                "forecast": forecast_data
-            }
-            )
+    if weather_data:
+        return jsonify({"weather": weather_data})
     else:
         return jsonify(
             {"error": "Unable to fetch weather data"}
