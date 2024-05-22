@@ -2,41 +2,55 @@
 
 {% block content %}
 <div class="text-center">
-<h2 class="mb-4">SkySync Weather Forecast</h2>
-<form method="post" class="form-inline justify-content-center">
-    {{ form.hidden_tag() }}
-    <div class="form-group mx-2">
-        {{ form.city.label(class="sr-only") }}
-        {{ form.city(class="form-control", placeholder="Enter city name") }}
-    </div>
-    <div class="form-group mx-2">
-        {{ form.submit(class="btn btn-primary") }}
-    </div>
-</form>
+    <h2 class="mb-4">SkySync Weather Forecast</h2>
+    <form method="post" class="form-inline justify-content-center">
+        {{ form.hidden_tag() }}
+        <div class="form-group mx-2">
+            {{ form.city.label(class="sr-only") }}
+            {{ form.city(class="form-control", placeholder="Enter city name") }}
+        </div>
+        <div class="form-group mx-2">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
 </div>
 
 <div id="weather-info" class="mt-4 text-center">
     <!-- Weather information goes here on document load up -->
 </div>
 
+<div id="forecast-info" class="mt-4 text-center">
+    <!-- Weather forecast information goes here on document load up -->
+</div>
+
 {% if weather_data %}
-<div class="mt-4 text-center">
-    <h6><strong>{{ weather_data["name"] }}, {{ weather_data["sys"]["country"] }}</strong></h6>
+<div class="mt-4 text-center forecast-item">
+    <p><strong>{{ weather_data["name"] }}, {{ weather_data["sys"]["country"] }}</strong></p>
     <h1>{{ weather_data["main"]["temp"] | int }}°</h1>
-    <h6>{{ weather_data["weather"][0]["description"] | capitalise_words }}</h6>
+    <p>{{ weather_data["weather"][0]["description"] | capitalise_words }}</p>
     <div class="row justify-content-center">
         <div class="col-auto">
-            <h6>High: {{ weather_data["main"]["temp_max"] | int }}°</h6>
+            <p>High: {{ weather_data["main"]["temp_max"] | int }}°</p>
         </div>
         <div class="col-auto">
-            <h6>Low: {{ weather_data["main"]["temp_min"] | int }}°</h6>
+            <p>Low: {{ weather_data["main"]["temp_min"] | int }}°</p>
         </div>
     </div>
-    <h6 class="mt-3">Actually feels like: {{ weather_data["main"]["feels_like"] | int }}°</h6>
+    <p class="mt-3">Feels like: {{ weather_data["main"]["feels_like"] | int }}°</p>
     <div class="mt-3">
-        <h6>Humidity: {{ weather_data["main"]["humidity"] | int }}%</h6>
-        <h6>Wind Speed: {{ weather_data["wind"]["speed"] | int }} km/s</h6>
+        <p>Humidity: {{ weather_data["main"]["humidity"] | int }}%</p>
+        <p>Wind Speed: {{ weather_data["wind"]["speed"] | int }} km/s</p>
     </div>
 </div>
+{% endif %}
+
+{% if forecast_data %}
+    <h2 class="text-center">5-Day Forecast</h2>
+    {% for item in forecast_data["list"] %}
+        <div class="forecast-item">
+            <h4 class="text-center">{{ item["dt_txt"] }}</h4>
+            <p class="text-center">{{ item["main"]["temp"] | int }}° - {{ item["weather"][0]["description"] | capitalise_words }}</p>
+        </div>
+    {% endfor %}
 {% endif %}
 {% endblock %}
