@@ -4,6 +4,7 @@ import requests
 from os import getenv
 from dotenv import load_dotenv
 import sys
+from datetime import datetime
 
 load_dotenv()
 
@@ -111,7 +112,7 @@ def get_weather_forecast(lat, lon):
 def capitalise_words(s):
     """
     Capitalises the first alphabet of each word from the description of
-    the weather data
+    the weather data.
 
     Args:
         s: strings to capitalise (first char of each words only)
@@ -120,3 +121,9 @@ def capitalise_words(s):
         description API.
     """
     return ' '.join(word.capitalize() for word in s.split())
+
+
+def datetime_filter(timestamp):
+    """"""
+    dt = datetime.fromtimestamp(timestamp)
+    return dt.strftime('%a, %b, %d, %H:%M')

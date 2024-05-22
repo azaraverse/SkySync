@@ -22,6 +22,14 @@ h1, h2 {
     max-width: 300px;
 }
 
+.spinner-border {
+    color: #fff;
+    width: 3rem;
+    height: 3rem;
+    margin: 20px auto;
+    display: none;
+}
+
 #weather-info {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
@@ -40,14 +48,51 @@ h1, h2 {
     margin: 10px 0;
 }
 
-.forecast-item {
-    background: rgba(255, 255, 255, 0.1);
+.scrollable-horizontal {
+    display: flex;
+    overflow-x: auto;
     padding: 10px;
-    border-radius: 10px;
-    margin-top: 10px;
+    white-space: nowrap;
 }
 
-.forecast-item h4, .forecast-item p {
+.forecast-item-current {
+    display: inline-block;
+    min-width: 150px;
+    background: #3e6deef5;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.forecast-item-current p,
+.forecast-item-current h1 {
+    margin: 5px 0;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.col-auto {
+    margin: 0 10px;
+}
+
+.forecast-item {
+    flex: 0 0 auto;
+    width: 150px;
+    background: #3e6deef5;
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.forecast-item p {
     margin: 0;
 }
 
