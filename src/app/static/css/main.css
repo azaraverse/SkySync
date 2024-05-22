@@ -1,13 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 body {
-    background-color: #f8f9fa;
+    background-color: #303c55;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
 }
 
-h1, h2, h6 {
-    color: #343a40;
+h1, h2 {
+    color: #f8f9fa;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.container {
+    padding-top: 100px;
+}
+
+.form-control {
+    max-width: 300px;
 }
 
 #weather-info {
-    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 40px;
 }
 
 #weather-info h1 {
@@ -22,19 +40,18 @@ h1, h2, h6 {
     margin: 10px 0;
 }
 
-.navbar {
-    margin-bottom: 20px;
+.forecast-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
-.container {
-    padding-top: 60px;
+.forecast-item h4, .forecast-item p {
+    margin: 0;
 }
 
-.form-control {
-    max-width: 300px;
-}
-
-.list-group-item {
-    text-align: left;
-    text-decoration: none;
+.forecast-item h4 {
+    font-size: 1.2rem;
+    font-weight: bold;
 }

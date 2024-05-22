@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 from flask import flash, redirect, url_for, request, Blueprint, jsonify
+from flask import session
 from flask import render_template
 from app.forms import WeatherForm
 from app.utils import get_weather, get_weather_coords
 from app.utils import get_weather_forecast
 from app import app_views
-import logging
+# import logging
 
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
 
 
 @app_views.route('/', methods=['GET', 'POST'], strict_slashes=False)
@@ -32,6 +33,15 @@ def index():
             lat = weather_data["coord"]["lat"]
             lon = weather_data["coord"]["lon"]
             forecast_data = get_weather_forecast(lat, lon)
+            session["weather_data"] = weather_data
+            session["forecast_data"] = forecast_data
+        return redirect(url_for("app_views.index"))
+
+    # check if there is city-based weather data in the session
+    if "weather_data" in session and "forecast_data" in session:
+        weather_data = session.pop("weather_data", None)
+        forecast_data = session.pop("forecast_data", None)
+
     return render_template(
         "index.html", form=form, weather_data=weather_data,
         forecast_data=forecast_data
@@ -62,7 +72,7 @@ def search():
 def get_weather_by_coords():
     """"""
     data = request.get_json()
-    logging.debug(f"Received data: {data}")
+    # logging.debug(f"Received data: {data}")
 
     if data is None:
         return jsonify(

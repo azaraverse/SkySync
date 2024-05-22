@@ -53,29 +53,28 @@ document.addEventListener('DOMContentLoaded', function () {
   function capitaliseWords (str) {
     return str.replace(/\b\w/g, function (char) {
         return char.toUpperCase();
-    })
+    });
   }
 
   // Function to display weather data
   function displayWeatherData (data) {
-    console.log(data);
     const weatherInfo = `
-        <div class="text-center">
-            <h6><strong>${data.weather.name}, ${data.weather.sys.country}</strong></h6>
+        <div class="text-center forecast-item">
+            <p><strong>${data.weather.name}, ${data.weather.sys.country}</strong></p>
             <h1>${Math.floor(data.weather.main.temp)}°</h1>
-            <h6>${capitaliseWords(data.weather.weather[0].description)}</h6>
+            <p>${capitaliseWords(data.weather.weather[0].description)}<p>
             <div class="row justify-content-center">
                 <div class="col-auto">
-                    <h6>High: ${Math.floor(data.weather.main.temp_max)}°</h6>
+                    <p>High: ${Math.floor(data.weather.main.temp_max)}°</p>
                 </div>
                 <div class="col-auto">
-                    <h6>Low: ${Math.floor(data.weather.main.temp_min)}°</h6>
+                    <p>Low: ${Math.floor(data.weather.main.temp_min)}°</p>
                 </div>
             </div>
-            <h6 class="mt-3">Actually feels like: ${Math.floor(data.weather.main.feels_like)}°</h6>
+            <p class="mt-3">Feels like: ${Math.floor(data.weather.main.feels_like)}°</p>
             <div class="mt-3">
-                <h6>Humidity: ${Math.floor(data.weather.main.humidity)}%</h6>
-                <h6>Wind Speed: ${Math.floor(data.weather.wind.speed)} km/s</h6>
+                <p>Humidity: ${Math.floor(data.weather.main.humidity)}%</p>
+                <p>Wind Speed: ${Math.floor(data.weather.wind.speed)} km/s</p>
             </div>
         </div>`;
     $('#weather-info').html(weatherInfo);
