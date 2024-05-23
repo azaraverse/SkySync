@@ -75,8 +75,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Function to display weather data
   function displayWeatherData (data) {
     console.log(data);
-    let date = new Date(data.weather.dt * 1000) // convert seconds to milliseconds since the epoch
-    let dateString = date.toLocaleDateString('en-Us', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+    const date = new Date(data.weather.dt * 1000); // convert seconds to milliseconds since the epoch
+    const dateString = date.toLocaleDateString('en-Us', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     const weatherInfo = `
         <div class="text-center forecast-item-current">
             <p><strong>${data.weather.name}, ${data.weather.sys.country}</strong></p>
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <p class="mt-3">Feels like: ${Math.floor(data.weather.main.feels_like)}°</p>
             <div class="mt-3">
                 <p>Humidity: ${Math.floor(data.weather.main.humidity)}%</p>
-                <p>Wind Speed: ${Math.floor(data.weather.wind.speed)} km/s</p>
+                <p>Wind Speed: ${Math.floor(data.weather.wind.speed)} m/s</p>
             </div>
         </div>`;
     $('#weather-info').html(weatherInfo);
@@ -102,19 +102,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Function to display forecast data
   function displayForecastData (data) {
-    let forecastInfo = '<p class="text-center">5-Day Forecast</p>';
-    forecastInfo += '<div class="scrollable-horizontal"></div>';
-    data.list.forEach(item => {
-        let date = new Date(item.dt_txt)
-        let dateString = date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+    let hourlyForecastInfo = '<p>Today\'s 3-Hour Interval Forecast</p>';
+    let forecastInfo = '<p>5-Day Forecast</p>';
+    const today = new Date();
+    today.setDate(today.getDate()); // get today's date
+
+    // Filter forecast data for the next five days and hourly data for tomorrow
+    const dailyForecastData = data.list.filter(item => {
+      const date = new Date(item.dt_txt);
+      return date.getHours() === 12 && date.getDate !== today.getDate(); // filter 12 noon data for tomorrow
+    });
+
+    const hourlyForecastData = data.list.filter(item => {
+      const date = new Date(item.dt_txt);
+      return date.getDate() === today.getDate(); // Filter hourly data for tomorrow
+    });
+
+    // Display hourly forecast for tomorrow
+    hourlyForecastInfo += '<div class="scrollable-horizontal">';
+    hourlyForecastData.forEach(item => {
+      const date = new Date(item.dt_txt);
+      const dateString = date.toLocaleDateString('en-US', { weekday: 'long', hour: '2-digit', minute: '2-digit' });
+      hourlyForecastInfo += `
+            <div class="forecast-item">
+                <p class="text-center">${dateString}</p>
+                <p class="text-center">${Math.floor(item.main.temp)}° - ${capitaliseWords(item.weather[0].description)}</p>
+            </div>`;
+    });
+    hourlyForecastInfo += '</div>';
+
+    // Display daily forecast for the next five days
+    dailyForecastData.forEach(item => {
+      const date = new Date(item.dt_txt);
+      const dateString = date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
       forecastInfo += `
         <div class="forecast-item">
             <p class="text-center">${dateString}</p>
             <p class="text-center">${Math.floor(item.main.temp)}° - ${capitaliseWords(item.weather[0].description)}</p>
         </div>`;
     });
-    forecastInfo += '</div>'
-    $('#forecast-info').html(forecastInfo);
+    forecastInfo += '</div>';
+    $('#forecast-info').html(hourlyForecastInfo + forecastInfo);
   }
 
   // Function to handle geolocation success
@@ -156,12 +184,12 @@ document.addEventListener('DOMContentLoaded', function () {
     event.preventDefault();
     showLoadingSpinner();
     const city = $('input[name="city"]').val();
-    console.log(city)
+    console.log(city);
     if (city) {
       $.ajax({
         url: '/search',
         type: 'POST',
-        data: { city: city },
+        data: { city },
         success: function (data) {
           hideLoadingSpinner();
           if (data.error) {

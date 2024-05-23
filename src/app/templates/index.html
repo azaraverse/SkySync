@@ -23,7 +23,7 @@
     <!-- Weather information goes here on document load up -->
 </div>
 
-<div id="forecast-info" class="mt-4 text-center container">
+<div id="forecast-info" class="mt-4 text-center">
     <!-- Weather forecast information goes here on document load up -->
 </div>
 
@@ -31,7 +31,7 @@
 <div class="mt-4 text-center forecast-item-current">
     <p><strong>{{ weather_data["name"] }}, {{ weather_data["sys"]["country"] }}</strong></p>
     <p>{{ weather_data["dt"] | datetime }}</p>
-    <h1>{{ weather_data["main"]["temp"] | int }}°</h1>
+    <h1 class="be-vietnam-pro-thin">{{ weather_data["main"]["temp"] | int }}°</h1>
     <p>{{ weather_data["weather"][0]["description"] | capitalise_words }}</p>
     <div class="row justify-content-center">
         <div class="col-auto">
@@ -44,7 +44,7 @@
     <p class="mt-3">Feels like: {{ weather_data["main"]["feels_like"] | int }}°</p>
     <div class="mt-3">
         <p>Humidity: {{ weather_data["main"]["humidity"] | int }}%</p>
-        <p>Wind Speed: {{ weather_data["wind"]["speed"] | int }} km/s</p>
+        <p>Wind Speed: {{ weather_data["wind"]["speed"] | int }} m/s</p>
     </div>
 </div>
 {% endif %}

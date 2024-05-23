@@ -38,6 +38,7 @@ h1, h2 {
 
 #weather-info {
     background: rgba(255, 255, 255, 0.1);
+    margin: 50px;
     /* border-radius: 10px; */
     /* margin: 40px; */
 }
