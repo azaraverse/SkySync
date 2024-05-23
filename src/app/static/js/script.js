@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="text-center forecast-item-current">
             <p><strong>${data.weather.name}, ${data.weather.sys.country}</strong></p>
             <p>${dateString}</p>
-            <h1>${Math.floor(data.weather.main.temp)}°</h1>
+            <h1 class="be-vietnam-pro-thin">${Math.floor(data.weather.main.temp)}°</h1>
             <p>${capitaliseWords(data.weather.weather[0].description)}<p>
             <div class="row justify-content-center">
                 <div class="col-auto">

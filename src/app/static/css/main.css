@@ -1,7 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+.be-vietnam-pro-thin {
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
 body {
-    background-color: #303c55;
+    background: linear-gradient(#6b85ff, #389fbe);
     color: #fff;
     font-family: 'Poppins', sans-serif;
 }
@@ -32,8 +38,8 @@ h1, h2 {
 
 #weather-info {
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    margin: 40px;
+    /* border-radius: 10px; */
+    /* margin: 40px; */
 }
 
 #weather-info h1 {
@@ -57,13 +63,12 @@ h1, h2 {
 
 .forecast-item-current {
     display: inline-block;
-    min-width: 150px;
+    width: 300px;
     background: #3e6deef5;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
     margin-top: 10px;
-    margin-right: 10px;
 }
 
 .forecast-item-current p,
@@ -74,10 +79,6 @@ h1, h2 {
 .row {
     display: flex;
     justify-content: center;
-}
-
-.col-auto {
-    margin: 0 10px;
 }
 
 .forecast-item {
