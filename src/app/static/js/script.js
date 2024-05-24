@@ -75,24 +75,21 @@ document.addEventListener('DOMContentLoaded', function () {
   // Function to display weather data
   function displayWeatherData (data) {
     console.log(data);
+    const iconCode = data.weather.weather[0].icon;
+    const icon = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
     const date = new Date(data.weather.dt * 1000); // convert seconds to milliseconds since the epoch
     const dateString = date.toLocaleDateString('en-Us', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     const weatherInfo = `
         <div class="text-center forecast-item-current">
+            <img id="weather-icon" alt="${data.weather.weather[0].description}" src="${icon}">
             <p><strong>${data.weather.name}, ${data.weather.sys.country}</strong></p>
             <p>${dateString}</p>
             <h1 class="be-vietnam-pro-thin">${Math.floor(data.weather.main.temp)}°</h1>
             <p>${capitaliseWords(data.weather.weather[0].description)}<p>
-            <div class="row justify-content-center">
-                <div class="col-auto">
-                    <p>High: ${Math.floor(data.weather.main.temp_max)}°</p>
-                </div>
-                <div class="col-auto">
-                    <p>Low: ${Math.floor(data.weather.main.temp_min)}°</p>
-                </div>
-            </div>
+            <p>H:${Math.floor(data.weather.main.temp_max)}° L:${Math.floor(data.weather.main.temp_min)}°</p>
+            <p></p>
             <p class="mt-3">Feels like: ${Math.floor(data.weather.main.feels_like)}°</p>
-            <div class="mt-3">
+            <div class="mt-3 pad-bottom">
                 <p>Humidity: ${Math.floor(data.weather.main.humidity)}%</p>
                 <p>Wind Speed: ${Math.floor(data.weather.wind.speed)} m/s</p>
             </div>
@@ -102,30 +99,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Function to display forecast data
   function displayForecastData (data) {
-    let hourlyForecastInfo = '<p>Today\'s 3-Hour Interval Forecast</p>';
-    let forecastInfo = '<p>5-Day Forecast</p>';
+    let hourlyForecastInfo = '<p class="text-center">3-Hour Interval Forecast</p>';
+    let forecastInfo = '<p class="text-center">5-Day Forecast</p>';
     const today = new Date();
     today.setDate(today.getDate()); // get today's date
 
     // Filter forecast data for the next five days and hourly data for tomorrow
     const dailyForecastData = data.list.filter(item => {
       const date = new Date(item.dt_txt);
-      return date.getHours() === 12 && date.getDate !== today.getDate(); // filter 12 noon data for tomorrow
+      return date.getHours() === 12 && date.getDate() !== today.getDate(); // filter 12 noon data for the next five days except today
     });
 
-    const hourlyForecastData = data.list.filter(item => {
-      const date = new Date(item.dt_txt);
-      return date.getDate() === today.getDate(); // Filter hourly data for tomorrow
-    });
+    // Get the first 8 items for today's hourly forecast
+    const hourlyForecastData = data.list.slice(0, 8);
 
-    // Display hourly forecast for tomorrow
+    // Display hourly forecast for today
     hourlyForecastInfo += '<div class="scrollable-horizontal">';
     hourlyForecastData.forEach(item => {
       const date = new Date(item.dt_txt);
-      const dateString = date.toLocaleDateString('en-US', { weekday: 'long', hour: '2-digit', minute: '2-digit' });
+      const iconCode = item.weather[0].icon;
+      const icon = `https://openweathermap.org/img/wn/${iconCode}.png`
+      const dateString = date.toLocaleDateString('en-US', { weekday: 'short', hour: '2-digit', minute: '2-digit' });
       hourlyForecastInfo += `
             <div class="forecast-item">
                 <p class="text-center">${dateString}</p>
+                <img src="${icon}" alt="${item.weather[0].description}">
                 <p class="text-center">${Math.floor(item.main.temp)}° - ${capitaliseWords(item.weather[0].description)}</p>
             </div>`;
     });
@@ -134,14 +132,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // Display daily forecast for the next five days
     dailyForecastData.forEach(item => {
       const date = new Date(item.dt_txt);
-      const dateString = date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      const iconCode = item.weather[0].icon;
+      const icon = `https://openweathermap.org/img/wn/${iconCode}.png`
+      const dateString = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
       forecastInfo += `
         <div class="forecast-item">
             <p class="text-center">${dateString}</p>
+            <img src="${icon}" alt="${item.weather[0].description}">
             <p class="text-center">${Math.floor(item.main.temp)}° - ${capitaliseWords(item.weather[0].description)}</p>
         </div>`;
     });
-    forecastInfo += '</div>';
     $('#forecast-info').html(hourlyForecastInfo + forecastInfo);
   }
 
