@@ -4,16 +4,22 @@
     font-family: "Be Vietnam Pro", sans-serif;
     font-weight: 100;
     font-style: normal;
+    text-align: center;
 }
 
 body {
     background: linear-gradient(#6b85ff, #389fbe);
     color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
     font-family: 'Poppins', sans-serif;
 }
 
-h1, h2 {
+h1, h2, p {
     color: #f8f9fa;
+    margin: 8px 0;
 }
 
 .navbar {
@@ -22,6 +28,8 @@ h1, h2 {
 
 .container {
     padding-top: 100px;
+    max-width: 400px;
+    text-align: center;
 }
 
 .form-control {
@@ -36,40 +44,55 @@ h1, h2 {
     display: none;
 }
 
+#temp-div p {
+    font-size: 100px;
+    margin-top: -30px;
+}
+
 #weather-info {
-    background: rgba(255, 255, 255, 0.1);
-    margin: 50px;
-    /* border-radius: 10px; */
-    /* margin: 40px; */
+    max-width: 400px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 #weather-info h1 {
     font-size: 4rem;
 }
 
-#weather-info h5, #weather-info h6 {
-    margin: 10px 0;
-}
-
 #weather-info .row {
     margin: 10px 0;
 }
 
+#weather-icon {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 10px;
+    margin-bottom: 0;
+    display: block;
+}
+
 .scrollable-horizontal {
+    margin-top: 50px;
     display: flex;
     overflow-x: auto;
     padding: 10px;
     white-space: nowrap;
+    justify-content: space-between;
 }
 
 .forecast-item-current {
     display: inline-block;
-    width: 300px;
-    background: #3e6deef5;
+    max-width: 400px;
+    backdrop-filter: blur(10px);
     padding: 10px;
     border-radius: 5px;
     text-align: center;
     margin-top: 10px;
+}
+
+.pad-bottom {
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .forecast-item-current p,
@@ -85,6 +108,9 @@ h1, h2 {
 .forecast-item {
     flex: 0 0 auto;
     width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: #3e6deef5;
     border: 1px solid #dee2e6;
     padding: 10px;
@@ -101,4 +127,10 @@ h1, h2 {
 .forecast-item h4 {
     font-size: 1.2rem;
     font-weight: bold;
+}
+
+.forecast-item img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
 }

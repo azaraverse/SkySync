@@ -19,6 +19,8 @@
     <span class="sr-only">Loading...</span>
 </div>
 
+<div id="temp-div"></div>
+
 <div id="weather-info" class="text-center">
     <!-- Weather information goes here on document load up -->
 </div>
@@ -29,18 +31,12 @@
 
 {% if weather_data %}
 <div class="mt-4 text-center forecast-item-current">
+    <img id="weather-icon" alt="{{ weather_data['weather'][0]['description'] }}">
     <p><strong>{{ weather_data["name"] }}, {{ weather_data["sys"]["country"] }}</strong></p>
     <p>{{ weather_data["dt"] | datetime }}</p>
     <h1 class="be-vietnam-pro-thin">{{ weather_data["main"]["temp"] | int }}°</h1>
     <p>{{ weather_data["weather"][0]["description"] | capitalise_words }}</p>
-    <div class="row justify-content-center">
-        <div class="col-auto">
-            <p>High: {{ weather_data["main"]["temp_max"] | int }}°</p>
-        </div>
-        <div class="col-auto">
-            <p>Low: {{ weather_data["main"]["temp_min"] | int }}°</p>
-        </div>
-    </div>
+    <p>H:{{ weather_data["main"]["temp_max"] | int }}° L:{{ weather_data["main"]["temp_min"] | int }}°</p>
     <p class="mt-3">Feels like: {{ weather_data["main"]["feels_like"] | int }}°</p>
     <div class="mt-3">
         <p>Humidity: {{ weather_data["main"]["humidity"] | int }}%</p>
@@ -53,10 +49,13 @@
     <p class="text-center">5-Day Forecast</p>
     <div class="scrollable-horizontal">
     {% for item in forecast_data["list"] %}
+        {% if item.dt_txt | datetimeformat('H') == 12 %}
         <div class="forecast-item">
             <p class="text-center">{{ item["dt_txt"] | datetime }}</p>
+            <img src="https://openweathermap.org/img/wn/{{ item['weather'][0]['icon'] }}.png" alt="{{ item['weather'][0]['description'] }}">
             <p class="text-center">{{ item["main"]["temp"] | int }}° - {{ item["weather"][0]["description"] | capitalise_words }}</p>
         </div>
+        {% endif %}
     {% endfor %}
     </div>
 {% endif %}
