@@ -53,8 +53,7 @@
         <div class="forecast-item">
             <p class="text-center">{{ item["dt_txt"] | datetime }}</p>
             <img src="https://openweathermap.org/img/wn/{{ item['weather'][0]['icon'] }}.png" alt="{{ item['weather'][0]['description'] }}">
-            <p class="text-center">{{ item["main"]["temp"] | int }}°</p>
-            <p class="text-center">{{ item["weather"][0]["description"] | capitalise_words }}</p>
+            <p class="text-center">{{ item["main"]["temp"] | int }}° - {{ item["weather"][0]["description"] | capitalise_words }}</p>
         </div>
         {% endif %}
     {% endfor %}

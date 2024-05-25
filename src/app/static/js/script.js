@@ -124,12 +124,14 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="forecast-item">
                 <p class="text-center">${dateString}</p>
                 <img src="${icon}" alt="${item.weather[0].description}">
-                <p class="text-center">${Math.floor(item.main.temp)}° - ${capitaliseWords(item.weather[0].description)}</p>
+                <p class="text-center">${Math.floor(item.main.temp)}°</p>
+                <p class="text-center">${capitaliseWords(item.weather[0].description)}</p>
             </div>`;
     });
     hourlyForecastInfo += '</div>';
 
     // Display daily forecast for the next five days
+    forecastInfo += '<div class="scrollable-horizontal">'
     dailyForecastData.forEach(item => {
       const date = new Date(item.dt_txt);
       const iconCode = item.weather[0].icon;
@@ -139,7 +141,8 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="forecast-item">
             <p class="text-center">${dateString}</p>
             <img src="${icon}" alt="${item.weather[0].description}">
-            <p class="text-center">${Math.floor(item.main.temp)}° - ${capitaliseWords(item.weather[0].description)}</p>
+            <p class="text-center">${Math.floor(item.main.temp)}°</p>
+            <p class="text-center">${capitaliseWords(item.weather[0].description)}</p>
         </div>`;
     });
     $('#forecast-info').html(hourlyForecastInfo + forecastInfo);
