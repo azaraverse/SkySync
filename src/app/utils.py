@@ -127,3 +127,9 @@ def datetime_filter(timestamp):
     """"""
     dt = datetime.fromtimestamp(timestamp)
     return dt.strftime('%a, %b, %d, %H:%M')
+
+
+def datetimeformat(value, format='%H'):
+    """Format a datetime string to hour format."""
+    date = datetime.strptime(value, '%Y-%m-%d %H:%M:%S')
+    return date.strftime(format)

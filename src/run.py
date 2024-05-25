@@ -7,7 +7,7 @@ import os
 from os import getenv
 from dotenv import load_dotenv
 import re
-from app.utils import capitalise_words, datetime_filter
+from app.utils import capitalise_words, datetime_filter, datetimeformat
 
 load_dotenv()
 secret_key = os.urandom(24)
@@ -26,6 +26,7 @@ app.config["SECRET_KEY"] = secret_key
 app.register_blueprint(app_views)
 app.jinja_env.filters['capitalise_words'] = capitalise_words
 app.jinja_env.filters['datetime'] = datetime_filter
+app.jinja_env.filters['datetimeformat'] = datetimeformat
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 

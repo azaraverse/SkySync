@@ -11,6 +11,8 @@ body {
     background: linear-gradient(#6b85ff, #389fbe);
     color: #fff;
     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     align-items: center;
     justify-content: center;
     margin: 0;
@@ -27,6 +29,7 @@ h1, h2, p {
 }
 
 .container {
+    flex: 1;
     padding-top: 100px;
     max-width: 400px;
     text-align: center;
@@ -72,7 +75,7 @@ h1, h2, p {
 }
 
 .scrollable-horizontal {
-    margin-top: 50px;
+    margin-top: 20px;
     display: flex;
     overflow-x: auto;
     padding: 10px;
@@ -83,7 +86,7 @@ h1, h2, p {
 .forecast-item-current {
     display: inline-block;
     max-width: 400px;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     padding: 10px;
     border-radius: 5px;
     text-align: center;
@@ -111,7 +114,8 @@ h1, h2, p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #3e6deef5;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border: 1px solid #dee2e6;
     padding: 10px;
     border-radius: 5px;
@@ -133,4 +137,45 @@ h1, h2, p {
     width: 30px;
     height: 30px;
     margin-bottom: 5px;
+}
+
+footer {
+    background-color: #fff;
+    backdrop-filter: blur(10px);
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+}
+
+footer p {
+    color: #006eff;
+}
+
+.referal-link a {
+    font-size: x-small;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.social-links {
+    margin: 0 20px;
+    display: inline-block;
+}
+
+.social-links a {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+    /* filter: invert(1); */
+    transition: transform 0.3s ease;
+}
+
+.social-links img:hover {
+    transform: scale(1.2);
 }
