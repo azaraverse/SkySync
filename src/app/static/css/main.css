@@ -28,6 +28,47 @@ h1, h2, p {
     margin-bottom: 20px;
 }
 
+.navbar-brand {
+    margin-left: 1rem;
+}
+
+.toggler-color {
+    background-color: #006eff;
+}
+
+.toggler-color::before,
+.toggler-color::after {
+    background-color: #006eff;
+}
+
+/* Additional styling for better appearance */
+.navbar-toggler-icon {
+    width: 30px;
+    height: 3px;
+    background-color: #006eff;
+    display: block;
+    transition: all 0.3s;
+    margin: 6px 0;
+}
+
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+    content: '';
+    width: 30px;
+    height: 3px;
+    background-color: #006eff;
+    display: block;
+    transition: all 0.3s;
+}
+
+.navbar-toggler-icon::before {
+    transform: translateY(-10px);
+}
+
+.navbar-toggler-icon::after {
+    transform: translateY(10px);
+}
+
 .container {
     flex: 1;
     padding-top: 100px;
