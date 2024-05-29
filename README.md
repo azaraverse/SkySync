@@ -21,6 +21,7 @@
 
 ## Features
 - Utilises geolocation (device's location) to retrieve weather data
+- Get weather information and forecasts for any city via search
 - Real-time weather updates
 - Weather forecasts (3-hour & 5-days forecast)
 - Responsive design
@@ -52,13 +53,12 @@ pip install -r requirements.txt
 
 ## Configuration
 Configure these environment variables in a .env file (These need to be configured in a `gunicorn` service file for deployment to production).
-See [gunicorn.service](./src/server_side_config/gunicorn.service)
-`FLASK_APP=run.py`
-`FLASK_ENV=development`
-`WEATHER_API_KEY=weather_api_key`
-`WEATHER_API_HOST=0.0.0.0`
-`WEATHER_API_PORT=5003`
-`PYTHONPATH=path/to/SkySync/src`
+- `FLASK_APP=run.py`
+- `FLASK_ENV=development`
+- `WEATHER_API_KEY=weather_api_key`
+- `WEATHER_API_HOST=0.0.0.0`
+- `WEATHER_API_PORT=5003`
+- `PYTHONPATH=path/to/SkySync/src`
 
 Make sure to replace `weather_api_key` with an actual weather API key from [OpenWeatherMap](https://openweathermap.org).
 
@@ -88,10 +88,13 @@ sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
 ```
-Only restart nginx when `nginx -t`(checking nginx syntax) passes without errors!
+Only restart nginx when `nginx -t` (checking nginx syntax) passes without errors!
 
 ## Usage
 Visit the website at [SkySync](https://www.muqitazara.tech) to get real-time weather updates.
+
+## Author
+Yushahu Yussif Azara - [X](https://www.twitter.com/muqitazara)/[LinkedIn](https://www.linkedin.com/in/yushahuyussifazara)
 
 ## Contributions
 Contributions are highly welcome. Kindly fork this repository, make necessary contributions and submit a pull request.
