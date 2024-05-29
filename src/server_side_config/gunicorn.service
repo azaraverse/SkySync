@@ -1,0 +1,27 @@
+[Unit]
+Description=Gunicorn service for serving SkySync
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/SkySync/src
+
+ExecStart=/usr/local/bin/gunicorn \
+        --workers 3 \
+        --bind 0.0.0.0:5003 \
+        --error-logfile /tmp/skysync-error.log \
+        --access-logfile /tmp/skysync-access.log \
+        run:app
+
+Environment="FLASK_APP=run.py"
+Environment="FLASK_ENV=development"
+Environment="WEATHER_API_KEY=051927028e4af256325429aca369c986"
+Environment="WEATHER_API_HOST=0.0.0.0"
+Environment="WEATHER_API_PORT=5003"
+Environment="PYTHONPATH=/home/ubuntu/SkySync/src"
+
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

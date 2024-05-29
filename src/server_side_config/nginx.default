@@ -1,0 +1,37 @@
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        # reverse proxy for root index
+        location / {
+                include proxy_params;
+                proxy_pass http://0.0.0.0:5003;
+                # return 301 https://www.muqitazara.tech/;
+        }
+
+        # serve static css and javascript files
+        location /static {
+                alias /home/ubuntu/SkySync/src/app/static;
+                expires 30d;
+                add_header Cache-Control "public, must-revalidate";
+        }
+
+        # additional server configurations
+        # root /var/www/html;
+        # root /home/ubuntu/SkySync/src;
+        # index index.html;
+
+        server_name _;
+        add_header X-Served-By $hostname;
+
+        location /redirect_me {
+                return 301 https://www.facebook.com/yushahuazara?mibextid=ZbWKwL;
+        }
+
+        error_page 404 /404.html;
+
+        location = /404.html {
+                root /usr/share/nginx/html;
+                internal;
+        }
+}
