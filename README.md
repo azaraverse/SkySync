@@ -17,6 +17,7 @@
         - [Using Gunicorn](#using-gunicorn)
         - [Setting up Nginx](#setting-up-nginx)
     - [Usage](#usage)
+    - [Author](#author)
     - [Contributions](#contributions)
     - [Bugs](#bugs)
 
@@ -60,7 +61,7 @@ Configure these environment variables in a .env file (These need to be configure
 - `WEATHER_API_KEY=weather_api_key`
 - `WEATHER_API_HOST=0.0.0.0`
 - `WEATHER_API_PORT=5003`
-- `PYTHONPATH=path/to/SkySync/src`
+- `PYTHONPATH=/path/to/SkySync/src`
 
 Make sure to replace `weather_api_key` with an actual weather API key from [OpenWeatherMap](https://openweathermap.org).
 
@@ -68,7 +69,7 @@ Make sure to replace `weather_api_key` with an actual weather API key from [Open
 Unittest was used for all testing purposes during the web scraping process. Navigate to the root directory to run the test.
 ```bash
 cd SkySync
-python3 -m unittest discover tests
+python3 -m unittest discover test
 ```
 
 ## Running the Application
@@ -103,7 +104,7 @@ Only restart nginx when `nginx -t` (checking nginx syntax) passes without errors
 Visit the website at [SkySync](https://www.muqitazara.tech) to get real-time weather updates.
 
 ## Author
-Yushahu Yussif Azara - [X](https://www.twitter.com/muqitazara)/[LinkedIn](https://www.linkedin.com/in/yushahuyussifazara)
+Yushahu Yussif Azara - [X](https://www.twitter.com/muqitazara) / [LinkedIn](https://www.linkedin.com/in/yushahuyussifazara)
 
 ## Contributions
 Contributions are highly welcome. Kindly fork this repository, make necessary contributions and submit a pull request.

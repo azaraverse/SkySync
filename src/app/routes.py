@@ -127,3 +127,9 @@ def forecast():
         return jsonify(
             {"error": "unable to retrieve forecast weather data."}
         ), 500
+
+
+@app_views.route('/about', methods=['GET'], strict_slashes=False)
+def about():
+    """"""
+    return render_template('about.html')
