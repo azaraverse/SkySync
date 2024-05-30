@@ -29,6 +29,7 @@
 - Scalable using Gunicorn and Nginx
 
 ## Demo
+![SkySync Screenshot Demo](./src/app/static/images/skysync_screenshot.png)
 Check out the live demo via: [SkySync Demo](https://www.muqitazara.tech)
 
 ## Installation
