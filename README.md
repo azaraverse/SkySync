@@ -11,6 +11,7 @@
         - [Clone the Repository](#clone-the-repository)
         - [Install Dependencies](#install-dependencies)
     - [Configuration](#configuration)
+    - [Test](#test)
     - [Running the Application](#running-the-application)
         - [Using Flask's Development Server](#using-flasks-development-server)
         - [Using Gunicorn](#using-gunicorn)
@@ -62,6 +63,13 @@ Configure these environment variables in a .env file (These need to be configure
 - `PYTHONPATH=path/to/SkySync/src`
 
 Make sure to replace `weather_api_key` with an actual weather API key from [OpenWeatherMap](https://openweathermap.org).
+
+## Test
+Unittest was used for all testing purposes during the web scraping process. Navigate to the root directory to run the test.
+```bash
+cd SkySync
+python3 -m unittest discover tests
+```
 
 ## Running the Application
 ### Using Flask's Development Server

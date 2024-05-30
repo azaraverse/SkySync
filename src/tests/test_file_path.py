@@ -17,6 +17,17 @@ class TestFilePath(unittest.TestCase):
             "Static folder path does not exist."
         )
 
+    def test_template_folder_path(self):
+        """Test the filepath for the template folder."""
+        current_dir = os.path.dirname(__file__)
+        template_folder_path = os.path.join(
+            current_dir, '..', 'app', 'template'
+        )
+        self.assertTrue(
+            os.path.exists(template_folder_path),
+            "Template folder path does not exist."
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
