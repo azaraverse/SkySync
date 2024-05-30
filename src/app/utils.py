@@ -124,12 +124,36 @@ def capitalise_words(s):
 
 
 def datetime_filter(timestamp):
-    """"""
+    """
+    Converts a Unix timestamp to a formatted datetime string.
+
+    Args:
+        timestamp (int): The unix timestamp to be converted. This is a
+        number representing the number of seconds since the epoch (
+        January 1, 1970, 00:00:00 UTC.
+        )
+
+    Returns:
+        str: A formatted datetime string in the format 'Day, Month, Date,
+        Hour:Minute'.
+    """
     dt = datetime.fromtimestamp(timestamp)
     return dt.strftime('%a, %b, %d, %H:%M')
 
 
 def datetimeformat(value, format='%H'):
-    """Format a datetime string to hour format."""
+    """
+    Converts a datetime string to a specified format.
+
+    Args:
+        value (str): The datetime string to be formatted. This should be
+        in the format 'YYYY-MM-DD HH:MM:SS'.
+        format (str, optional): The format to convert the datetime string
+        to. Defaults to '%H', which represents the hour in a 24-hour clock
+
+    Returns:
+        str: The formatted datetime string according to the specified
+        format.
+    """
     date = datetime.strptime(value, '%Y-%m-%d %H:%M:%S')
     return date.strftime(format)

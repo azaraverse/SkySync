@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from flask import flash, redirect, url_for, request, Blueprint, jsonify
+from flask import redirect, url_for, request, jsonify
 from flask import session
 from flask import render_template
 from app.forms import WeatherForm
@@ -66,11 +66,11 @@ def search():
             # fetch weather data using the utility function
             weather_data = get_weather(city)
             if weather_data:
-                return jsonify({ "weather": weather_data })
+                return jsonify({"weather": weather_data})
             else:
-                return jsonify({ "error": "could not retrieve weather data." })
+                return jsonify({"error": "could not retrieve weather data."})
         else:
-            return jsonify({ "error": "City name is required." }), 400
+            return jsonify({"error": "City name is required."}), 400
     return render_template("search.html", form=form)
 
 
@@ -78,7 +78,13 @@ def search():
     '/get_weather_by_coords', methods=['POST'], strict_slashes=False
     )
 def get_weather_by_coords():
-    """"""
+    """
+    Route for getting weather data using coordinates from the JavaScript
+    geolocation retrieved from browser.
+
+    Returns:
+        Weather data retrieved successfully
+    """
     data = request.get_json()
     # logging.debug(f"Received data: {data}")
 
@@ -105,7 +111,13 @@ def get_weather_by_coords():
 
 @app_views.route('/forecast', methods=['POST'], strict_slashes=False)
 def forecast():
-    """"""
+    """
+    Route for getting forecast weather data using the coordinates from
+    the JavaScript file retrieved from the browser's geolocation.
+
+    Returns:
+        Weather data retrieved successfully.
+    """
     data = request.get_json()
 
     if data is None:
@@ -131,5 +143,11 @@ def forecast():
 
 @app_views.route('/about', methods=['GET'], strict_slashes=False)
 def about():
-    """"""
+    """
+    Route for displaying the about html page of the weather app.
+
+    Returns:
+        A rendered html template that contains the about section of the
+        weather app.
+    """
     return render_template('about.html')

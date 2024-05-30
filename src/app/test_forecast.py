@@ -1,13 +1,12 @@
 #!/usr/bin/python3
 """Test forecast for 5 days"""
+from utils import get_weather_forecast
 from os import path
 import sys
 from utils import capitalise_words
 
 # ensure the src/app directory is in the sys.path to import utils
 sys.path.append(path.join(path.dirname(__file__), 'src', 'app'))
-
-from utils import get_weather_forecast
 
 
 def test_get_weather_forecast():

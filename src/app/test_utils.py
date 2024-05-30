@@ -1,12 +1,11 @@
 #!/usr/bin/python3
+from utils import get_weather
 from os import environ
 from os import path
 import sys
 
 # ensure the src/app directory is in the sys.path to import utils
 sys.path.append(path.join(path.dirname(__file__), 'src', 'app'))
-
-from utils import get_weather
 
 
 def test_get_weather():
@@ -28,7 +27,7 @@ def test_get_weather():
         wind = weather_data["wind"]["speed"]
         conditions = weather_data["weather"][0]["description"]
         print(f'Weather for: {name}, {country}')
-        print(f'Temperature: {temperature}°C') # alt + 0176 for degree sym
+        print(f'Temperature: {temperature}°C')  # alt + 0176 for degree sym
         print(f'Feels like: {feels}°C')
         print(f'Humidity: {humidity}%')
         print(f'Wind Speed: {wind}m/s')

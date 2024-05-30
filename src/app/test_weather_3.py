@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 """"""
+from utils import get_weather_coords
 import os
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src', 'app'))
-
-from utils import get_weather_coords
 
 
 def test_get_weather_coords():

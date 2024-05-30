@@ -16,7 +16,7 @@ secret_key = os.urandom(24)
 template_folder = os.path.join(
     os.path.dirname(__file__), 'app', 'templates'
     )
-static_folder = os.path.join(os.path.dirname(__file__), 'app','static')
+static_folder = os.path.join(os.path.dirname(__file__), 'app', 'static')
 
 app = Flask(
     __name__, template_folder=template_folder,
@@ -32,7 +32,9 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.errorhandler(404)
 def not_found(error):
-    '''custom 404 error handler'''
+    """
+    custom 404 error handler
+    """
     return jsonify(
         {"error": "Not found"}
     ), 404
