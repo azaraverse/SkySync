@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 document.addEventListener('DOMContentLoaded', function () {
-  console.log('JavaScript is loaded and working!');
+  // console.log('JavaScript is loaded and working!');
   // Loading spinner
   function showLoadingSpinner () {
     $('#loading-spinner').show();
@@ -74,11 +74,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Function to display weather data
   function displayWeatherData (data) {
-    console.log(data);
+    // console.log(data);
     const iconCode = data.weather.weather[0].icon;
     const icon = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
     const date = new Date(data.weather.dt * 1000); // convert seconds to milliseconds since the epoch
     const dateString = date.toLocaleDateString('en-Us', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    const sunriseTime = new Date(data.weather.sys.sunrise * 1000);
+    const sunsetTime = new Date(data.weather.sys.sunset * 1000);
+    const sunrise = sunriseTime.toLocaleTimeString('en-Us', { hour: '2-digit', minute: '2-digit' });
+    const sunset = sunsetTime.toLocaleTimeString('en-Us', { hour: '2-digit', minute: '2-digit' });
     const weatherInfo = `
         <div class="text-center forecast-item-current">
             <img id="weather-icon" alt="${data.weather.weather[0].description}" src="${icon}">
@@ -92,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="mt-3 pad-bottom">
                 <p>Humidity: ${Math.floor(data.weather.main.humidity)}%</p>
                 <p>Wind Speed: ${Math.floor(data.weather.wind.speed)} m/s</p>
+                <p>Sunrise: ${sunrise} - Sunset: ${sunset}</p>
             </div>
         </div>`;
     $('#weather-info').html(weatherInfo);
