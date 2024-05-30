@@ -23,7 +23,7 @@ app = Flask(
     static_folder=static_folder
     )
 app.config["SECRET_KEY"] = secret_key
-app.register_blueprint(app_views)
+app.register_blueprint(app_views, url_prefix='/')
 app.jinja_env.filters['capitalise_words'] = capitalise_words
 app.jinja_env.filters['datetime'] = datetime_filter
 app.jinja_env.filters['datetimeformat'] = datetimeformat
