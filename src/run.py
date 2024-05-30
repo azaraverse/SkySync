@@ -13,13 +13,13 @@ load_dotenv()
 secret_key = os.urandom(24)
 
 # ensure flask can locate the templates and static folder
-templates_folder = os.path.join(
+template_folder = os.path.join(
     os.path.dirname(__file__), 'app', 'templates'
     )
 static_folder = os.path.join(os.path.dirname(__file__), 'app','static')
 
 app = Flask(
-    __name__, template_folder=templates_folder,
+    __name__, template_folder=template_folder,
     static_folder=static_folder
     )
 app.config["SECRET_KEY"] = secret_key
