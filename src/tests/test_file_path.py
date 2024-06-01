@@ -21,7 +21,7 @@ class TestFilePath(unittest.TestCase):
         """Test the filepath for the template folder."""
         current_dir = os.path.dirname(__file__)
         template_folder_path = os.path.join(
-            current_dir, '..', 'app', 'template'
+            current_dir, '..', 'app', 'templates'
         )
         self.assertTrue(
             os.path.exists(template_folder_path),
