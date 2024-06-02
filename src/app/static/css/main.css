@@ -71,6 +71,7 @@ a:hover, a:focus, a:active {
 
 .btn-outline-primary {
     background-color: #fff !important;
+    border-color: transparent !important;
     color: #006eff !important;
 }
 
