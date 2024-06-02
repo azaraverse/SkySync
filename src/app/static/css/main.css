@@ -102,6 +102,7 @@ a:hover, a:focus, a:active {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 20px;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     margin: 0 auto;
@@ -159,15 +160,15 @@ a:hover, a:focus, a:active {
 
 .forecast-item {
     flex: 0 0 auto;
-    width: 150px;
+    /* width: 150px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid #dee2e6;
+    border: .1px solid #dee2e6;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     text-align: center;
     margin: 10px;
 }
