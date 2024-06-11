@@ -94,11 +94,11 @@ document.addEventListener('DOMContentLoaded', function () {
             <img id="weather-icon" alt="${data.weather[0].description}" src="${icon}">
             <p><strong>${data.name}, ${data.sys.country}</strong></p>
             <p>${dateString}</p>
-            <h1 class="be-vietnam-pro-thin">${Math.floor(data.main.temp)}°</h1>
+            <h1 class="be-vietnam-pro-thin">${Math.floor(data.main.temp)}&deg;</h1>
             <p>${capitaliseWords(data.weather[0].description)}<p>
-            <p>H:${Math.floor(data.main.temp_max)}° L:${Math.floor(data.main.temp_min)}°</p>
+            <p>H:${Math.floor(data.main.temp_max)}&deg; L:${Math.floor(data.main.temp_min)}&deg;</p>
             <p></p>
-            <p class="mt-3"><strong>Feels like: ${Math.floor(data.main.feels_like)}°</strong></p>
+            <p class="mt-3"><strong>Feels like: ${Math.floor(data.main.feels_like)}&deg;</strong></p>
             <div class="mt-3 pad-bottom">
                 <p>Humidity: ${Math.floor(data.main.humidity)}%</p>
                 <p>Wind Speed: ${Math.floor(data.wind.speed)} m/s</p>
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="forecast-item">
                 <p class="text-center">${dateString}</p>
                 <img src="${icon}" alt="${item.weather[0].description}">
-                <p class="text-center">${Math.floor(item.main.temp)}°</p>
+                <p class="text-center">${Math.floor(item.main.temp)}&deg;</p>
                 <p class="text-center">${capitaliseWords(item.weather[0].description)}</p>
             </div>`;
     });
