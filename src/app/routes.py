@@ -3,7 +3,7 @@ from flask import redirect, url_for, request, jsonify
 from flask import session
 from flask import render_template
 from app.forms import WeatherForm
-from app.utils import get_weather, get_weather_coords
+from app.utils import get_weather, get_weather_by_coords
 from app.utils import get_weather_forecast
 from app import app_views
 # import logging
@@ -14,7 +14,7 @@ from app import app_views
 @app_views.route('/', methods=['GET', 'POST'], strict_slashes=False)
 def index():
     """
-    Route for the landing page/root page to display weather data.
+    Route for the index page to display weather data.
 
     Renders the main page with the weather form and displays the weather
     data.
@@ -26,26 +26,31 @@ def index():
     weather_data = None
     forecast_data = None
 
-    if form.validate_on_submit():
-        city = form.city.data
-        weather_data = get_weather(city)
-        if weather_data:
-            lat = weather_data["coord"]["lat"]
-            lon = weather_data["coord"]["lon"]
-            forecast_data = get_weather_forecast(lat, lon)
-            session["weather_data"] = weather_data
-            session["forecast_data"] = forecast_data
+    if request.method == "POST":
+        city = request.form.get('city')
+        if city:
+            weather_data = get_weather(city)
+            if weather_data:
+                lat = weather_data["coord"]["lat"]
+                lon = weather_data["coord"]["lon"]
+                forecast_data = get_weather_forecast(lat, lon)
+                session["weather_data"] = weather_data
+                session["forecast_data"] = forecast_data
+            else:
+                return jsonify(
+                    {"Error": "Could not retrieve weather data."}
+                )
+        else:
+            return jsonify({"Error": "City name required."})
         return redirect(url_for("app_views.index"))
 
     # check if there is city-based weather data in the session
+    # pop available weather-data from session to prevent stale data
     if "weather_data" in session and "forecast_data" in session:
         weather_data = session.pop("weather_data", None)
         forecast_data = session.pop("forecast_data", None)
 
-    return render_template(
-        "index.html", form=form, weather_data=weather_data,
-        forecast_data=forecast_data
-        )
+    return render_template("index.html", form=form)
 
 
 @app_views.route('/search', methods=['GET', 'POST'], strict_slashes=False)
@@ -59,6 +64,8 @@ def search():
         Rendered HTML template for the search bar
     """
     form = WeatherForm()
+    weather_data = None
+    forecast_data = None
 
     if request.method == "POST":
         city = request.form.get('city')
@@ -66,46 +73,57 @@ def search():
             # fetch weather data using the utility function
             weather_data = get_weather(city)
             if weather_data:
-                return jsonify({"weather": weather_data})
+                lat = weather_data["coord"]["lat"]
+                lon = weather_data["coord"]["lon"]
+                forecast_data = get_weather_forecast(lat, lon)
+                return jsonify(weather_data)
             else:
-                return jsonify({"error": "could not retrieve weather data."})
+                return render_template(
+                    "search.html", form=form,
+                    error="Could not retrieve weather data"
+                ), 400
         else:
-            return jsonify({"error": "City name is required."}), 400
-    return render_template("search.html", form=form)
+            return render_template(
+                "search.html", form=form, error="City name is required."
+            ), 400
+    return render_template(
+        "search.html", form=form, weather_data=weather_data,
+        forecast_data=forecast_data
+    )
 
 
 @app_views.route(
     '/get_weather_by_coords', methods=['POST'], strict_slashes=False
     )
-def get_weather_by_coords():
+def get_weather_using_coords():
     """
     Route for getting weather data using coordinates from the JavaScript
     geolocation retrieved from browser.
 
     Returns:
-        Weather data retrieved successfully
+        Weather data retrieved successfully.
     """
     data = request.get_json()
     # logging.debug(f"Received data: {data}")
 
     if data is None:
         return jsonify(
-            {"error": "No data received"}
+            {"Error": "No data received."}
             ), 400
     lat = data.get('latitude')
     lon = data.get('longitude')
 
     if not lat or not lon:
         return jsonify(
-            {"error": "Missing coordinates"}
+            {"Error": "Missing coordinates."}
         ), 400
 
-    weather_data = get_weather_coords(lat, lon)
+    weather_data = get_weather_by_coords(lat, lon)
     if weather_data:
-        return jsonify({"weather": weather_data})
+        return jsonify(weather_data)
     else:
         return jsonify(
-            {"error": "Unable to fetch weather data"}
+            {"Error": "Unable to fetch weather data."}
         ), 500
 
 
@@ -122,14 +140,14 @@ def forecast():
 
     if data is None:
         return jsonify(
-            {"error": "no data retrieved"}
+            {"Error": "No data retrieved."}
         ), 400
     lat = data.get("lat")
     lon = data.get("lon")
 
     if not lat or not lon:
         return jsonify(
-            {"error": "missing coordinates"}
+            {"Error": "Missing coordinates."}
         ), 400
 
     forecast_data = get_weather_forecast(lat, lon)
@@ -137,7 +155,7 @@ def forecast():
         return jsonify(forecast_data)
     else:
         return jsonify(
-            {"error": "unable to retrieve forecast weather data."}
+            {"Error": "Unable to retrieve forecast weather data."}
         ), 500
 
 

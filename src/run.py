@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Start the API"""
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from app import app_views
 from flask_cors import CORS
 import os
@@ -30,14 +30,13 @@ app.jinja_env.filters['datetimeformat'] = datetimeformat
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 
+# return a custom 404 message on page not found.
 @app.errorhandler(404)
 def not_found(error):
     """
     custom 404 error handler
     """
-    return jsonify(
-        {"error": "Not found"}
-    ), 404
+    return render_template("404.html"), 404
 
 
 if __name__ == "__main__":

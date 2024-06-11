@@ -1,0 +1,71 @@
+.container-404 {
+    text-align: center;
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+    padding: 20px;
+}
+
+.container-404 h1 {
+    font-size: 120px;
+    font-weight: 700;
+    margin: 0;
+    color: #FFD700;
+}
+
+.container-404 h2 {
+    font-size: 36px;
+    margin: 10px 0;
+}
+
+.container-404 p {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.container-404 a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 0;
+    font-size: 18px;
+    color: #007BFF;
+    background-color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.container-404 a:hover {
+    color: #fff;
+    background-color: #1273da;
+}
+
+.clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.cloud {
+    position: absolute;
+    background: #fff;
+    border-radius: 50px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.x1 { top: 10%; left: 20%; width: 120px; height: 80px; animation: moveCloud 15s linear infinite; }
+.x2 { top: 30%; left: 50%; width: 200px; height: 100px; animation: moveCloud 20s linear infinite; }
+.x3 { top: 60%; left: 70%; width: 160px; height: 90px; animation: moveCloud 25s linear infinite; }
+.x4 { top: 20%; left: 80%; width: 180px; height: 110px; animation: moveCloud 18s linear infinite; }
+.x5 { top: 50%; left: 10%; width: 140px; height: 90px; animation: moveCloud 22s linear infinite; }
+
+@keyframes moveCloud {
+    0% { transform: translateX(-300px); }
+    100% { transform: translateX(2000px); }
+}

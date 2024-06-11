@@ -6,9 +6,11 @@ from dotenv import load_dotenv
 import sys
 from datetime import datetime
 
-load_dotenv()
+load_dotenv()  # load environment variables in .env
 
 
+# define a function for the search feature that gets weather information
+# a given city
 def get_weather(city):
     """A function that retrieves weather data from an API
 
@@ -17,7 +19,13 @@ def get_weather(city):
     Return:
         Returns the json format of response
     """
+    # get and ensure OpenWeatherMap API Key is available in the
+    # environment variables
     api_key = getenv("WEATHER_API_KEY")
+    if not api_key:
+        print("API Key is missing...")
+        sys.exit(1)
+
     api_url = "https://api.openweathermap.org/data/2.5/weather"
     params = {
         "q": city,
@@ -38,7 +46,10 @@ def get_weather(city):
         return None
 
 
-def get_weather_coords(lat, lon):
+# Define a function that retrieves current weather data based on
+# passed coordinates. This would be incorporated in a feature that
+# displays the weather data on document loadup.
+def get_weather_by_coords(lat, lon):
     """A function that retrieves weather data from an API using
     coordinates.
 
@@ -48,9 +59,25 @@ def get_weather_coords(lat, lon):
     Returns:
         JSON response of weather data.
     """
+
+    # get and ensure OpenWeatherMap API Key is available in the
+    # environment variables
     api_key = getenv("WEATHER_API_KEY")
     if not api_key:
         print("API Key is missing...")
+        sys.exit(1)
+
+    # check if coordinates are of float type by handling float conversion
+    try:
+        lat = float(lat)
+    except ValueError:
+        print("Given coordinate for latitude is not of type float!")
+        sys.exit(1)
+
+    try:
+        lon = float(lon)
+    except ValueError:
+        print("Given coordinate for longitude is not of type float!")
         sys.exit(1)
 
     api_url = "https://api.openweathermap.org/data/2.5/weather"
@@ -74,6 +101,9 @@ def get_weather_coords(lat, lon):
         return None
 
 
+# Define a function that retrieves forecast weather data based on
+# passed coordinates. This would be incorporated in a feature that
+# displays the weather data on document loadup.
 def get_weather_forecast(lat, lon):
     """A function that retrieves a 5-day weather forecast data from an
     API using coordinates.
@@ -84,9 +114,25 @@ def get_weather_forecast(lat, lon):
     Returns:
         JSON response of weather data.
     """
+
+    # get and ensure OpenWeatherMap API Key is available in the
+    # environment variables
     api_key = getenv("WEATHER_API_KEY")
     if not api_key:
         print("API Key is missing...")
+        sys.exit(1)
+
+    # check if coordinates are of float type by handling float conversion
+    try:
+        lat = float(lat)
+    except ValueError:
+        print("Given coordinate for latitude is not of type float!")
+        sys.exit(1)
+
+    try:
+        lon = float(lon)
+    except ValueError:
+        print("Given coordinate for longitude is not of type float!")
         sys.exit(1)
 
     api_url = "https://api.openweathermap.org/data/2.5/forecast"

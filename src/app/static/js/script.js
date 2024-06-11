@@ -65,9 +65,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // function to capitalise the first letter of a word
+  // function to capitalise the first letter of each word in a string
+  // using the replace method with regex (regular expression)
+  // The function takes a string and uses the replace method to pass the
+  // regex matched characters to the callback function, toUpperCase().
+  // \b: Word Boundary - Matches a word boundary position between a word
+  // character and non-word character or position (start / end of string)
+  // [a-zA-Z0-9_]: - Matches any word character (alphanumeric & underscore).
   function capitaliseWords (str) {
-    return str.replace(/\b\w/g, function (char) {
+    return str.replace(/\b[a-zA-Z]/g, function (char) {
       return char.toUpperCase();
     });
   }
@@ -75,27 +81,27 @@ document.addEventListener('DOMContentLoaded', function () {
   // Function to display weather data
   function displayWeatherData (data) {
     // console.log(data);
-    const iconCode = data.weather.weather[0].icon;
+    const iconCode = data.weather[0].icon;
     const icon = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
-    const date = new Date(data.weather.dt * 1000); // convert seconds to milliseconds since the epoch
+    const date = new Date(data.dt * 1000); // convert timestamp (unix) into date object (seconds since the epoch)
     const dateString = date.toLocaleDateString('en-Us', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-    const sunriseTime = new Date(data.weather.sys.sunrise * 1000);
-    const sunsetTime = new Date(data.weather.sys.sunset * 1000);
+    const sunriseTime = new Date(data.sys.sunrise * 1000);
+    const sunsetTime = new Date(data.sys.sunset * 1000);
     const sunrise = sunriseTime.toLocaleTimeString('en-Us', { hour: '2-digit', minute: '2-digit' });
     const sunset = sunsetTime.toLocaleTimeString('en-Us', { hour: '2-digit', minute: '2-digit' });
     const weatherInfo = `
         <div class="text-center forecast-item-current">
-            <img id="weather-icon" alt="${data.weather.weather[0].description}" src="${icon}">
-            <p><strong>${data.weather.name}, ${data.weather.sys.country}</strong></p>
+            <img id="weather-icon" alt="${data.weather[0].description}" src="${icon}">
+            <p><strong>${data.name}, ${data.sys.country}</strong></p>
             <p>${dateString}</p>
-            <h1 class="be-vietnam-pro-thin">${Math.floor(data.weather.main.temp)}°</h1>
-            <p>${capitaliseWords(data.weather.weather[0].description)}<p>
-            <p>H:${Math.floor(data.weather.main.temp_max)}° L:${Math.floor(data.weather.main.temp_min)}°</p>
+            <h1 class="be-vietnam-pro-thin">${Math.floor(data.main.temp)}°</h1>
+            <p>${capitaliseWords(data.weather[0].description)}<p>
+            <p>H:${Math.floor(data.main.temp_max)}° L:${Math.floor(data.main.temp_min)}°</p>
             <p></p>
-            <p class="mt-3">Feels like: ${Math.floor(data.weather.main.feels_like)}°</p>
+            <p class="mt-3"><strong>Feels like: ${Math.floor(data.main.feels_like)}°</strong></p>
             <div class="mt-3 pad-bottom">
-                <p>Humidity: ${Math.floor(data.weather.main.humidity)}%</p>
-                <p>Wind Speed: ${Math.floor(data.weather.wind.speed)} m/s</p>
+                <p>Humidity: ${Math.floor(data.main.humidity)}%</p>
+                <p>Wind Speed: ${Math.floor(data.wind.speed)} m/s</p>
                 <p>Sunrise: ${sunrise} - Sunset: ${sunset}</p>
             </div>
         </div>`;
@@ -104,8 +110,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Function to display forecast data
   function displayForecastData (data) {
-    let hourlyForecastInfo = '<p class="text-center">3-Hour Interval Forecast</p>';
-    let forecastInfo = '<p class="text-center">5-Day Forecast</p>';
+    let hourlyForecastInfo = '<p class="text-left">24-Hours, 3-Hour Interval Forecast</p>';
+    let forecastInfo = '<p class="text-left">5-Day Forecast</p>';
     const today = new Date();
     today.setDate(today.getDate()); // get today's date
 
@@ -146,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="forecast-item">
             <p class="text-center">${dateString}</p>
             <img src="${icon}" alt="${item.weather[0].description}">
-            <p class="text-center">${Math.floor(item.main.temp)}°</p>
+            <p class="text-center">${Math.floor(item.main.temp)}&deg;</p>
             <p class="text-center">${capitaliseWords(item.weather[0].description)}</p>
         </div>`;
     });
@@ -192,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
     event.preventDefault();
     showLoadingSpinner();
     const city = $('input[name="city"]').val();
-    console.log(city);
+    // console.log(city);
     if (city) {
       $.ajax({
         url: '/search',
@@ -201,18 +207,19 @@ document.addEventListener('DOMContentLoaded', function () {
         success: function (data) {
           hideLoadingSpinner();
           if (data.error) {
-            alert('Error fetching weather data: ' + data.error);
+            alert('Encountered an error: ' + data.error);
           } else {
             displayWeatherData(data);
-            const lat = data.weather.coord.lat;
-            const lon = data.weather.coord.lon;
+            const lat = data.coord.lat;
+            const lon = data.coord.lon;
             getForecastByCoords(lat, lon);
           }
         },
         error: function (error) {
           hideLoadingSpinner();
-          console.error('Error:', error);
-          alert('Error fetching weather data. Please try again.');
+          // test error that occured
+          // console.error('Error:', error);
+          alert('Please enter a valid city name!');
         }
       });
     }

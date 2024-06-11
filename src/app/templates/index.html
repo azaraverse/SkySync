@@ -15,11 +15,9 @@
     </form>
 </div>
 
-<div id="loading-spinner" class="spinner-border text-primary" role="status" style="display: none;">
+<div id="loading-spinner" class="spinner-border" role="status">
     <span class="sr-only">Loading...</span>
 </div>
-
-<div id="temp-div"></div>
 
 <div class="weather-info-wrapper">
     <div id="weather-info" class="text-center">
@@ -27,39 +25,8 @@
     </div>
 </div>
 
-<div id="forecast-info" class="mt-4 text-center">
+<div id="forecast-info" class="mt-4">
     <!-- Weather forecast information goes here on document load up -->
 </div>
 
-{% if weather_data %}
-<div class="mt-4 text-center forecast-item-current">
-    <img id="weather-icon" alt="{{ weather_data['weather'][0]['description'] }}">
-    <p><strong>{{ weather_data["name"] }}, {{ weather_data["sys"]["country"] }}</strong></p>
-    <p>{{ weather_data["dt"] | datetime }}</p>
-    <h1 class="be-vietnam-pro-thin">{{ weather_data["main"]["temp"] | int }}°</h1>
-    <p>{{ weather_data["weather"][0]["description"] | capitalise_words }}</p>
-    <p>H:{{ weather_data["main"]["temp_max"] | int }}° L:{{ weather_data["main"]["temp_min"] | int }}°</p>
-    <p class="mt-3">Feels like: {{ weather_data["main"]["feels_like"] | int }}°</p>
-    <div class="mt-3">
-        <p>Humidity: {{ weather_data["main"]["humidity"] | int }}%</p>
-        <p>Wind Speed: {{ weather_data["wind"]["speed"] | int }} m/s</p>
-    </div>
-</div>
-{% endif %}
-
-{% if forecast_data %}
-    <p class="text-center">5-Day Forecast</p>
-    <div class="scrollable-horizontal">
-    {% for item in forecast_data["list"] %}
-        {% if item.dt_txt | datetimeformat('H') == 12 %}
-        <div class="forecast-item">
-            <p class="text-center">{{ item["dt_txt"] | datetime }}</p>
-            <img src="https://openweathermap.org/img/wn/{{ item['weather'][0]['icon'] }}.png" alt="{{ item['weather'][0]['description'] }}">
-            <p class="text-center">{{ item["main"]["temp"] | int }}°</p>
-            <p class="text-center">{{ item["weather"][0]["description"] | capitalise_words }}</p>
-        </div>
-        {% endif %}
-    {% endfor %}
-    </div>
-{% endif %}
 {% endblock %}
