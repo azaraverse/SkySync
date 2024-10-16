@@ -1,7 +1,7 @@
 # SkySync
-Read this markdown in html via [About SkySync](https://www.muqitazara.tech/about).
+Read this markdown in html via [About SkySync](https://skysync-steel.vercel.app/about).
 
-[SkySync](https://start.muqitazara.tech/) is a web application built using [python](https://www.python.org), with [flask](https://flask.palletsprojects.com/en/3.0.x/) as framework, [Gunicorn](https://gunicorn.org/), [Nginx](https://nginx.org/en/), HTML, CSS (local css and [bootstrap](https://getbootstrap.com/)) and [JavaScript](https://www.javascript.com/). It falls on the [OpenWeatherMap](https://openweathermap.org) API to retrieve, extract and display weather data using web scraping techniques. This ensures a scalable and efficient weather service.
+[SkySync](https://skysync-steel.vercel.app/) is a web application built using [python](https://www.python.org), with [flask](https://flask.palletsprojects.com/en/3.0.x/) as framework, [Gunicorn](https://gunicorn.org/), [Nginx](https://nginx.org/en/), HTML, CSS (local css and [bootstrap](https://getbootstrap.com/)) and [JavaScript](https://www.javascript.com/). It falls on the [OpenWeatherMap](https://openweathermap.org) API to retrieve, extract and display weather data using web scraping techniques. This ensures a scalable and efficient weather service.
 
 ## Table of Contents
 - [SkySync](#skysync)
@@ -103,7 +103,7 @@ sudo systemctl restart nginx
 Only restart nginx when `nginx -t` (checking nginx syntax) passes without errors!
 
 ## Usage
-Visit the website at [SkySync](https://www.muqitazara.tech) to get real-time weather updates.
+Visit the website at [SkySync](https://skysync-steel.vercel.app/) to get real-time weather updates.
 
 ## Author
 Yushahu Yussif Azara - [X](https://www.twitter.com/muqitazara) / [LinkedIn](https://www.linkedin.com/in/yushahuyussifazara)
