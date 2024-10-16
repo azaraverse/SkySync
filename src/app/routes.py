@@ -1,11 +1,13 @@
 #!/usr/bin/python3
+""" Flask Routes
+"""
 from flask import redirect, url_for, request, jsonify
 from flask import session
 from flask import render_template
-from app.forms import WeatherForm
-from app.utils import get_weather, get_weather_by_coords
-from app.utils import get_weather_forecast
-from app import app_views
+from ..app.forms import WeatherForm
+from ..app.utils import get_weather, get_weather_by_coords
+from ..app.utils import get_weather_forecast
+from ..app import app_views
 # import logging
 
 # logging.basicConfig(level=logging.DEBUG)

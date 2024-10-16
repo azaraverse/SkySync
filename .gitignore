@@ -3,3 +3,4 @@ git_render.sh
 
 # redud directories and content
 __pycache__/
+.vercel
